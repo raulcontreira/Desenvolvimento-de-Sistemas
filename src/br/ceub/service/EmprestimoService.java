@@ -95,11 +95,12 @@ public class EmprestimoService {
         //Registra data real de devolução
         emprestimo.setAtivo(false);
         emprestimo.setDataDevoluçaoReal(LocalDate.now());
+        emprestimoRepository.atualizar(emprestimo);
         
         //Incrementa quantidade de livros
         Livro livro = livroRepository.buscarPorId(emprestimo.getLivroId());
         livro.setQuantidade(livro.getQuantidade() + 1);
-        livroRepository.salvar(livro);
+        livroRepository.atualizar(livro);
     
     }
 
