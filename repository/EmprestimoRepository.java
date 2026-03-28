@@ -5,7 +5,7 @@ import br.ceub.model.Emprestimo;
 
 public class EmprestimoRepository {
 	
-	private static  list<emprestimo> banco = new Arraylist<emprestimo>();
+	private static Map<inter, Emprestimo> banco = new HashMap<>();
 	private static  int nextId = 1;
 	
     public Emprestimo salvar(Emprestimo emprestimo) {
@@ -14,7 +14,7 @@ public class EmprestimoRepository {
     	}
     	banco.add(emprestimo.getId(), emprestimo)
         return esmprestimo;
-    }
+    } 
 
     public Emprestimo buscarPorId(int id) {
         return banco.get(id);
@@ -26,7 +26,7 @@ public class EmprestimoRepository {
 
     public List<Emprestimo> buscarEmprestimosAtivos(int usuarioId) {
         return banco.values().stream()
-                .filter(emprestimo -> emprestimo.getUsuarioId() == usuarioId && emprestimo.isAtivo())
+                .filter(emprestimo -> emprestimo.getUsuarioId() == usuarioId)
                 .collect(Collectors.toList());
     }
 
@@ -41,8 +41,8 @@ public class EmprestimoRepository {
     }
 
     public void atualizar(Emprestimo emprestimo) {
-    	if(banco (emprestimo.getId()))
-    		banco.add(emprestimo.getId(), emprestimo);
+    	if(banco.containsKey(emprestimo.getId())) {
+    		banco.put(emprestimo.getId(), emprestimo);
     		return emprestimo;
     }
     	return null; // caso não ache o emprestimo

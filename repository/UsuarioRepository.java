@@ -11,6 +11,9 @@ public class UsuarioRepository {
     private static int nextId = 1;
 	
     public Usuario salvar(Usuario u){
+        if (u.getId() == 0) {
+        	u.setId(nextId++);
+        }
         banco.add(u.getId(), u);
         return u;
     }
@@ -41,12 +44,19 @@ public class UsuarioRepository {
     }
 
     public List<Usuario> listarTodos() {
-        return null;
+        return new Arraylist<>(banco);
     }
 
     public void atualizar(Usuario usuario) {
+    	if(banco(usuario.getId())) {
+    		bando.add(usuario.getId(), usuario);
+    		return usuario;
+    	}
+    	
+    	return null;
     }
 
     public void deletar(int id) {
+    	return banco.remove(id) != null;
     }
 }
